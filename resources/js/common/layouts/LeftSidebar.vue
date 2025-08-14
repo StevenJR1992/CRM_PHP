@@ -5,14 +5,14 @@
             margin: '0 0 0 0',
             overflowY: 'auto',
             position: 'fixed',
-            paddingTop: '8px',
+            paddingTop: '5px',
             zIndex: 998,
             borderRight: themeMode == 'dark' ? '1px solid #303030' : '1px solid #f0f0f0',
         }"
         :trigger="null"
         :collapsed="menuCollapsed"
         :theme="themeMode == 'dark' ? 'light' : appSetting.left_sidebar_theme"
-        class="sidebar-right-border"
+        class="sidebar-minimal"
     >
         <div v-if="menuCollapsed" class="logo">
             <img
@@ -539,6 +539,8 @@ import { defineComponent, ref, watch, onMounted, computed } from "vue";
 import { Layout } from "ant-design-vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import { Modal } from 'ant-design-vue';
+import { useI18n } from 'vue-i18n';
 import {
     HomeOutlined,
     LogoutOutlined,
@@ -651,6 +653,7 @@ export default defineComponent({
         const openKeys = ref([]);
         const selectedKeys = ref([]);
         const mode = ref("inline");
+        const { t } = useI18n();
 
         onMounted(() => {
             var menuKey =
@@ -676,9 +679,29 @@ export default defineComponent({
         });
 
         const logout = () => {
-            store.dispatch("auth/updateGlobalSetting");
-            store.dispatch("auth/logout");
+            Modal.confirm({
+                title: t("menu.logout"),
+                content: t("menu.logoutConfirm"),
+                okText: t("common.yes"),
+                cancelText: t("common.no"),
+                cancelButtonProps: { type: 'primary', style: { backgroundColor: 'red', borderColor: 'red', color: '#fff' } },
+                okButtonProps: { type: 'primary' },
+                width: 600,
+                bodyStyle: { fontSize: '18px', padding: '24px' },
+                transitionName: 'slide-up',
+                maskTransitionName: 'fade',
+                onOk() {
+                    return store.dispatch("auth/updateGlobalSetting")
+                        .then(() => store.dispatch("auth/logout"))
+                        .catch(error => console.error("Ocurrió un error al cerrar sesión:", error));
+                },
+                onCancel() {
+                    console.log(t("menu.logoutCancelled"));
+                }
+            });
+
         };
+
 
         const menuSelected = () => {
             if (innerWidth <= 991) {
@@ -767,7 +790,7 @@ export default defineComponent({
 
 <style lang="less">
 .main-sidebar .ps {
-    height: calc(100vh - 62px);
+    height: calc(100vh - 0px);
 }
 
 @media only screen and (max-width: 1150px) {
@@ -775,4 +798,26 @@ export default defineComponent({
         left: -80px !important;
     }
 }
+/* Solo aplica el tamaño si NO está colapsado */
+.ant-menu:not(.ant-menu-inline-collapsed) .ant-menu-item {
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 10px !important;
+    font-size: 14px !important;
+}
+
+.ant-menu:not(.ant-menu-inline-collapsed) .ant-menu-submenu-title {
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 10px !important;
+    font-size: 14px !important;
+}
+
+.ant-menu-sub.ant-menu-inline .ant-menu-item {
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 20px !important;
+    font-size: 14px !important;
+}
+
 </style>

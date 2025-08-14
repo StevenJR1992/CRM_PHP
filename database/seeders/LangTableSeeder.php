@@ -29,6 +29,11 @@ class LangTableSeeder extends Seeder
         $enLang->key = 'en';
         $enLang->save();
 
+        $enLang = new Lang();
+        $enLang->name = 'Español';
+        $enLang->key = 'es';
+        $enLang->save();
+
         LangTrans::seedMainTranslations();
     }
 }

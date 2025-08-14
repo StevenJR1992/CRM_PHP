@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Company;
-use App\Models\Lang;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +25,40 @@ class CreateCurrenciesTable extends Migration
             $table->boolean('is_deletable')->default(true);
             $table->timestamps();
         });
+
+        // Insertar monedas por defecto
+        DB::table('currencies')->insert([
+            [
+                'company_id'   => 1,
+                'name'         => 'US dollar',
+                'code'         => 'USD',
+                'symbol'       => '$',
+                'position'     => 'left',
+                'is_deletable' => false,
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ],
+            [
+                'company_id'   => 1,
+                'name'         => 'Colón Costa Rica',
+                'code'         => 'CRC',
+                'symbol'       => '₡',
+                'position'     => 'left',
+                'is_deletable' => false,
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ],
+            [
+                'company_id'   => 1,
+                'name'         => 'Euro',
+                'code'         => 'EUR',
+                'symbol'       => '€',
+                'position'     => 'left',
+                'is_deletable' => false,
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ],
+        ]);
     }
 
     /**

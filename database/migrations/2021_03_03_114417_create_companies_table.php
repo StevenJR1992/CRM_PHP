@@ -75,6 +75,7 @@ class CreateCompaniesTable extends Migration
                 'phone' => '+9199999999',
                 'address' => '7 street, city, state, 762782',
                 'lang_id' => $enLang->id,
+                'currency_id' => 1,
             ]);
         }
     }

@@ -27,8 +27,15 @@ class CreateLangsTable extends Migration
         // No observer for Lang
         // So No need to create using DB Class
         $enLang = new Lang();
+        $enLang->image = 'lang-en.png';
         $enLang->name = 'English';
         $enLang->key = 'en';
+        $enLang->save();
+
+        $enLang = new Lang();
+        $enLang->image = 'lang-es.png';
+        $enLang->name = 'Español';
+        $enLang->key = 'es';
         $enLang->save();
     }
 

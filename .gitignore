@@ -17,7 +17,6 @@ yarn-error.log
 /.vscode
 /.history
 .history/*
-/public/uploads/*
 /public/build/*
 /Modules/*
 !/Modules

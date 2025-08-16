@@ -336,6 +336,6 @@ export default defineComponent({
 
 <style lang="less">
 .setting-sidebar .ps {
-    height: calc(100vh - 145px);
+    height: calc(100vh - 0px);
 }
 </style>

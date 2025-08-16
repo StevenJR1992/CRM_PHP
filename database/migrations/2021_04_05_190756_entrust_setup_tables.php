@@ -66,23 +66,80 @@ class EntrustSetupTables extends Migration
         if (app_type() == 'non-saas') {
             $company = Company::where('is_global', 0)->first();
 
+            // Crear rol Admin
             $adminRoleId = DB::table('roles')->insertGetId([
-                'company_id' => $company->id,
-                'name' => 'admin',
+                'company_id'   => $company->id,
+                'name'         => 'admin',
                 'display_name' => 'Admin',
-                'description' => 'Admin is allowed to manage everything of the app.'
+                'description'  => 'Admin is allowed to manage everything of the app.'
             ]);
 
-            DB::table('users')->where('name', 'Admin')->update([
-                'role_id' => $adminRoleId,
+            // Crear usuario Admin
+            $adminId = DB::table('users')->insertGetId([
+                'company_id' => $company->id,
+                'name'       => 'Admin',
+                'email'      => 'admin@example.com',
+                'password'   => bcrypt('12345678'),
+                'role_id'    => $adminRoleId,
+                'user_type'  => 'staff_members',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
-            $admin = DB::table('users')->where('name', 'Admin')->first();
             DB::table('role_user')->insert([
-                'user_id' => $admin->id,
+                'user_id' => $adminId,
                 'role_id' => $adminRoleId,
+            ]);
+
+            // Crear Manager
+            $managerRoleId = DB::table('roles')->insertGetId([
+                'company_id'   => $company->id,
+                'name'         => 'manager',
+                'display_name' => 'Manager',
+                'description'  => 'Manager of the app.'
+            ]);
+
+            $managerId = DB::table('users')->insertGetId([
+                'company_id' => $company->id,
+                'name'       => 'Manager',
+                'email'      => 'manager@example.com',
+                'password'   => bcrypt('12345678'),
+                'role_id'    => $managerRoleId,
+                'user_type'  => 'staff_members',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('role_user')->insert([
+                'user_id' => $managerId,
+                'role_id' => $managerRoleId,
+            ]);
+
+            // Crear Member
+            $memberRoleId = DB::table('roles')->insertGetId([
+                'company_id'   => $company->id,
+                'name'         => 'member',
+                'display_name' => 'Member',
+                'description'  => 'Member of the app.'
+            ]);
+
+            $memberId = DB::table('users')->insertGetId([
+                'company_id' => $company->id,
+                'name'       => 'Member',
+                'email'      => 'member@example.com',
+                'password'   => bcrypt('12345678'),
+                'role_id'    => $memberRoleId,
+                'user_type'  => 'staff_members',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('role_user')->insert([
+                'user_id' => $memberId,
+                'role_id' => $memberRoleId,
             ]);
         }
+
 
         // Seeding Permissions
         PermsSeed::seedMainPermissions();

@@ -54,7 +54,7 @@ class CreateUsersTable extends Migration
 
             $adminId = DB::table('users')->insertGetId([
                 'company_id' => $company->id,
-                'name' => 'Admin',
+                'name' => 'asd',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('12345678'),
                 'user_type' => 'staff_members',

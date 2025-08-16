@@ -5,7 +5,7 @@
         </template>
     </AdminPageHeader>
     <div class="dashboard-page-content-container">
-        <a-row :gutter="[8, 8]" class="mt-30 mb-10">
+        <a-row :gutter="[8, 8]" class="mt-10 mb-10">
             <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
                 <DateRangePicker
                     ref="serachDateRangePicker"
@@ -16,7 +16,7 @@
             </a-col>
         </a-row>
 
-        <div class="mt-30 mb-20">
+        <div class="mt-10 mb-10">
             <a-row :gutter="[15, 15]">
                 <a-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6">
                     <StateWidget bgColor="#08979c">
@@ -90,9 +90,9 @@
             </a-row>
         </div>
 
-        <a-row :gutter="[18, 18]" class="mt-30 mb-20">
+        <a-row :gutter="[18, 18]" class="mt-10 mb-10">
             <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
-                <a-card :title="$t('dashboard.active_actioned_campaigns')">
+                <a-card :title="$t('dashboard.active_actioned_campaigns')" style="height: 100%;">
                     <ActionedCampaigns :data="responseData" />
                 </a-card>
             </a-col>
@@ -117,7 +117,7 @@
             </a-col>
         </a-row>
 
-        <a-row :gutter="[18, 18]" class="mt-30 mb-20">
+        <a-row :gutter="[18, 18]" class="mt-10 mb-10">
             <a-col :xs="24" :sm="24" :md="12" :lg="16" :xl="16">
                 <a-card
                     :title="$t('salesman_booking.salesman_booking')"

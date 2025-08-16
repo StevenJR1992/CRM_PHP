@@ -49,7 +49,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        if (app_type() == 'non-saas') {
+        /*if (app_type() == 'non-saas') {
             $company = Company::where('is_global', 0)->first();
 
             $adminId = DB::table('users')->insertGetId([
@@ -62,7 +62,7 @@ class CreateUsersTable extends Migration
 
             $company->admin_id = $adminId;
             $company->save();
-        }
+        }*/
     }
 
     /**

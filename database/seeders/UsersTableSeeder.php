@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Scopes\CompanyScope;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsersTableSeeder extends Seeder
 {
@@ -41,7 +43,7 @@ class UsersTableSeeder extends Seeder
         $admin->company_id = $company->id;
         $admin->name = 'Admin';
         $admin->email = 'admin@example.com';
-        $admin->password = '12345678';
+        $admin->password = Hash::make('12345678');
         $admin->role_id = $adminRole->id;
         $admin->user_type = "staff_members";
         $admin->save();
@@ -57,7 +59,7 @@ class UsersTableSeeder extends Seeder
         $manager->company_id = $company->id;
         $manager->name = 'Manager';
         $manager->email = 'manager@example.com';
-        $manager->password = '12345678';
+        $manager->password = Hash::make('12345678');
         $manager->role_id = $managerRole->id;
         $manager->user_type = "staff_members";
         $manager->save();
@@ -70,7 +72,7 @@ class UsersTableSeeder extends Seeder
         $member->company_id = $company->id;
         $member->name = 'Member';
         $member->email = 'member@example.com';
-        $member->password = '12345678';
+        $member->password = Hash::make('12345678');
         $member->role_id = $memberRole->id;
         $member->user_type = "staff_members";
         $member->save();
